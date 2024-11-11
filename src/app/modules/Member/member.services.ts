@@ -22,8 +22,27 @@ const getMemberById = async (id: string) => {
   return result;
 };
 
+const updateMemberIntoDb = async (
+  id: string,
+  data: Partial<Member>
+): Promise<Member> => {
+  await prisma.member.findUniqueOrThrow({
+    where: {
+      memberId: id,
+    },
+  });
+  const result = await prisma.member.update({
+    where: {
+      memberId: id,
+    },
+    data,
+  });
+  return result;
+};
+
 export const MemberServices = {
   createMember,
   getAllMembers,
   getMemberById,
+  updateMemberIntoDb,
 };
