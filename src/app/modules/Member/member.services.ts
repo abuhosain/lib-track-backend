@@ -40,9 +40,19 @@ const updateMemberIntoDb = async (
   return result;
 };
 
+const deleteMemberFromDb = async (id: string) => {
+  const result = await prisma.member.delete({
+    where: {
+      memberId: id,
+    },
+  });
+  return result;
+};
+
 export const MemberServices = {
   createMember,
   getAllMembers,
   getMemberById,
   updateMemberIntoDb,
+  deleteMemberFromDb,
 };

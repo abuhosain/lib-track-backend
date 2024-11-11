@@ -7,6 +7,6 @@ router.post("/", MemberControllers.createMember);
 router.get("/", MemberControllers.getAllMembers);
 router.get("/:memberId", MemberControllers.getMemberById);
 router.put("/:memberId", MemberControllers.updateMemberIntoDb);
-// router.delete("/:bookId", MemberControllers.deleteBookFromDb);
+router.delete("/:memberId", MemberControllers.deleteMemberFromDb);
 
 export const MemberRoutes = router;
