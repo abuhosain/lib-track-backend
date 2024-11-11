@@ -22,7 +22,24 @@ const getBookById = async (id: string) => {
       bookId: id,
     },
   });
+  return result;
+};
 
+const updateBookIntoDb = async (
+  id: string,
+  data: Partial<Book>
+): Promise<Book> => {
+  await prisma.book.findUniqueOrThrow({
+    where: {
+      bookId: id,
+    },
+  });
+  const result = await prisma.book.update({
+    where: {
+      bookId: id,
+    },
+    data,
+  });
   return result;
 };
 
@@ -30,4 +47,5 @@ export const BookServices = {
   createBook,
   getAllBooks,
   getBookById,
+  updateBookIntoDb,
 };
