@@ -43,9 +43,19 @@ const updateBookIntoDb = async (
   return result;
 };
 
+const deleteBookFromDb = async (id: string) => {
+  const result = await prisma.book.delete({
+    where: {
+      bookId: id,
+    },
+  });
+  return result;
+};
+
 export const BookServices = {
   createBook,
   getAllBooks,
   getBookById,
   updateBookIntoDb,
+  deleteBookFromDb,
 };
