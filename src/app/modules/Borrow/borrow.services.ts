@@ -3,6 +3,7 @@ import { prisma } from "../../../shared/prisma";
 
 const createBorrow = async (payload: BorrowRecord) => {
   const { bookId, memberId } = payload;
+
   const book = await prisma.book.findUnique({
     where: { bookId },
   });
@@ -14,14 +15,27 @@ const createBorrow = async (payload: BorrowRecord) => {
   if (book.availableCopies <= 0) {
     throw new Error("No copies available for borrowing");
   }
-  const result = await prisma.borrowRecord.create({
+
+  // Create the borrow record
+  const borrowRecord = await prisma.borrowRecord.create({
     data: {
       bookId,
       memberId,
       borrowDate: new Date(),
     },
   });
-  return result;
+
+  //  decreament
+  await prisma.book.update({
+    where: { bookId },
+    data: {
+      availableCopies: {
+        decrement: 1,
+      },
+    },
+  });
+
+  return borrowRecord;
 };
 
 export const BorrowServices = {
