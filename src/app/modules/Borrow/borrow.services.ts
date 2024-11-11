@@ -9,11 +9,15 @@ const createBorrow = async (payload: BorrowRecord) => {
   });
 
   if (!book) {
-    throw new Error("Book not found");
+    const error: any = new Error("Invalid book ID");
+    error.status = 404;
+    throw error;
   }
 
   if (book.availableCopies <= 0) {
-    throw new Error("No copies available for borrowing");
+    const error: any = new Error("No available copies");
+    error.status = 400;
+    throw error;
   }
 
   // Create the borrow record

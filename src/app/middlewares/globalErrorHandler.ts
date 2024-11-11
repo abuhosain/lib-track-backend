@@ -6,10 +6,13 @@ const globalErrorHandler = (
   res: Response,
   next: NextFunction
 ) => {
-  res.status(500).json({
+  // Default to 500 for server errors if status is not set
+  const statusCode = err.status || 500;
+
+  res.status(statusCode).json({
     success: false,
+    status: statusCode,
     message: err.message || "Something went wrong",
-    error: err,
   });
 };
 
