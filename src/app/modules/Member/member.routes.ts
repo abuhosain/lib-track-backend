@@ -5,8 +5,8 @@ const router = express.Router();
 
 router.post("/", MemberControllers.createMember);
 router.get("/", MemberControllers.getAllMembers);
-// router.get("/:bookId", BookControllers.getSingleBook);
-// router.put("/:bookId", BookControllers.updateBookIntoDb);
-// router.delete("/:bookId", BookControllers.deleteBookFromDb);
+router.get("/:memberId", MemberControllers.getMemberById);
+// router.put("/:bookId", MemberControllers.updateBookIntoDb);
+// router.delete("/:bookId", MemberControllers.deleteBookFromDb);
 
 export const MemberRoutes = router;
